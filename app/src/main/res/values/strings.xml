@@ -2,7 +2,7 @@
     <string name="app_name">TelecastApp</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_phone_no">Enter your Phone No</string>
+    <string name="prompt_phone_no">Enter Your Phone No</string>
     <string name="prompt_password">Enter Your Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -11,4 +11,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="chat">Telecast App will send an sms message to verify your phone number.</string>
+    <string name="sign_in_text">LogIn</string>
+    <string name="create_account">Create Account</string>
+    <string name="logout">Logout</string>
 </resources>
