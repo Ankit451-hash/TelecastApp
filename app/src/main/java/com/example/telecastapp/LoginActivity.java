@@ -8,12 +8,24 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-// *  This Activity is used for handling login related activity.
+/**
+ * This Activity is used for handling login related activity.
+ */
 public class LoginActivity extends AppCompatActivity {
 
-    // *  This Variable is used to store/handle user login information.
-    Button logIn, signUp;
-    EditText userNo, userPwd;
+    /**
+     * This Variable is used to handle user login information.
+     */
+    Button logIn;
+    /**
+     * This Variable is used to store/handle user signup information.
+     */
+    Button signUp;
+    /**
+     * This Variable is used to store/handle user login information.
+     */
+    EditText userNo;
+    EditText userPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         String phoneNo = userNo.getText().toString();
         String pwd = userNo.getText().toString();
 
-        // *  This method is used to handle user login click.
         logIn.setOnClickListener(view -> {
             if (TextUtils.isEmpty(phoneNo) || TextUtils.isEmpty(pwd)) {
                 Toast t = Toast.makeText(getApplicationContext(), "All Fields Required",
@@ -39,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // *  This method is used to handle new user creation operation.
         signUp.setOnClickListener(view -> {
             Toast.makeText(getApplicationContext(), "Create an Account", Toast.LENGTH_SHORT)
                     .show();

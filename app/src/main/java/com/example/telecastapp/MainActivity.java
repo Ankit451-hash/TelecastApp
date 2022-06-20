@@ -1,9 +1,12 @@
 package com.example.telecastapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+/**
+ * This Activity is used for handling main activity functionality.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
