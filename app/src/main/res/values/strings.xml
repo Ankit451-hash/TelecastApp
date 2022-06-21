@@ -10,8 +10,11 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="chat">Telecast App will send an sms message to verify your phone number.</string>
+    <string name="chat">Telecast App will send an One Time Password to verify your phone number.</string>
     <string name="sign_in_text">LogIn</string>
     <string name="create_account">Create Account</string>
     <string name="logout">Logout</string>
+    <string name="verify">Verify your phone number</string>
+    <string name="confirm">Confirm </string>
+    <string name="otp_verification"> GET OTP </string>
 </resources>

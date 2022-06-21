@@ -1,7 +1,8 @@
 package com.example.telecastapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,14 +10,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * This Activity is used for handling login related activity.
+ * This Activity is used for handling login related operation.
  */
 public class LoginActivity extends AppCompatActivity {
 
     /**
      * This Variable is used to handle user login information.
      */
-    Button logIn;
+    Button otp;
     /**
      * This Variable is used to store/handle user signup information.
      */
@@ -25,34 +26,36 @@ public class LoginActivity extends AppCompatActivity {
      * This Variable is used to store/handle user login information.
      */
     EditText userNo;
-    EditText userPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        logIn = findViewById(R.id.btn_login);
-        signUp = findViewById(R.id.btn_signup);
+        setContentView(R.layout.activity_login);
+        otp = findViewById(R.id.btn_otp);
         userNo = findViewById(R.id.edit_phone_no);
-        userPwd = findViewById(R.id.edit_pwd);
 
-        String phoneNo = userNo.getText().toString();
-        String pwd = userNo.getText().toString();
+        otp.setOnClickListener(view -> {
+            if (!userNo.getText().toString().trim().isEmpty()) {
+                if(userNo.getText().toString().trim().length() == 10) {
+                    navigateToOtpActivity(view);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Enter Valid Phone Number",
+                            Toast.LENGTH_SHORT).show();
+                }
 
-        logIn.setOnClickListener(view -> {
-            if (TextUtils.isEmpty(phoneNo) || TextUtils.isEmpty(pwd)) {
-                Toast t = Toast.makeText(getApplicationContext(), "All Fields Required",
-                        Toast.LENGTH_SHORT);
-                t.show();
             } else {
-                Toast.makeText(getApplicationContext(), "Button click",
+                Toast.makeText(getApplicationContext(), "All Fields are Required",
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        signUp.setOnClickListener(view -> {
-            Toast.makeText(getApplicationContext(), "Create an Account", Toast.LENGTH_SHORT)
-                    .show();
-        });
+    /**
+     * This Method is used for handling navigation to OTP activity.
+     */
+    public void navigateToOtpActivity(View view){
+        Intent intent = new Intent(getApplicationContext(),OtpActivity.class);
+        intent.putExtra("mobile",userNo.getText().toString());
+        startActivity(intent);
     }
 }
