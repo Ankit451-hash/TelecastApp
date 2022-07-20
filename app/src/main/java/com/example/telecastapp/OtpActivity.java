@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * This Activity is used for handling user-login related information.
@@ -20,6 +23,7 @@ public class OtpActivity extends AppCompatActivity {
      */
     private TextView cell_no;
     private Button confirm;
+    String code_received;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class OtpActivity extends AppCompatActivity {
 
         cell_no = (TextView) findViewById(R.id.text_mobile_no);
         cell_no.setText("+91 "+getIntent().getStringExtra("mobile"));
+        code_received = getIntent().getStringExtra("otp");
 
         TextView otp1 = (TextView) findViewById(R.id.edit_otp1);
         TextView otp2 = (TextView) findViewById(R.id.edit_otp2);
@@ -36,13 +41,22 @@ public class OtpActivity extends AppCompatActivity {
         TextView otp5 = (TextView) findViewById(R.id.edit_otp5);
         TextView otp6 = (TextView) findViewById(R.id.edit_otp6);
 
-        confirm = (Button) findViewById(R.id.btn_confirm);
-        confirm.setOnClickListener(view -> {
-            Toast.makeText(getApplicationContext(), "Login check", Toast.LENGTH_SHORT).show();
-        });
-
         /* Assign the TextViews in the array in the order in which you want to shift focus */
         TextView[] otpTextViews = {otp1, otp2, otp3, otp4, otp5, otp6};
+
+        confirm = (Button) findViewById(R.id.btn_confirm);
+        confirm.setOnClickListener(view -> {
+            if (otpTextViews!= null) {
+                Toast.makeText(getApplicationContext(), "otp check"+code_received,
+                        Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "All Fields required",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        Log.d(TAG, "onCreate:otp "+otpTextViews);
 
         /*
             This method is used to handle edit text move to next after enter the digits
