@@ -1,15 +1,16 @@
 package com.example.telecastapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static android.content.ContentValues.TAG;
 
@@ -19,44 +20,77 @@ import static android.content.ContentValues.TAG;
 public class OtpActivity extends AppCompatActivity {
 
     /**
-     * This Variable is used for storing phone number.
+     * This variable is used for storing OTP received.
      */
-    private TextView cell_no;
+    String otp_received;
+
+    /**
+     * This variable is used for storing OTP entered by the user.
+     */
+    String otp_entered;
+
+    /**
+     * This variable is used for storing phone number.
+     */
+    private TextView device_no;
+
+    /**
+     * This button is used for handling sign-up operation.
+     */
     private Button confirm;
-    String code_received;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
 
-        cell_no = (TextView) findViewById(R.id.text_mobile_no);
-        cell_no.setText("+91 "+getIntent().getStringExtra("mobile"));
-        code_received = getIntent().getStringExtra("otp");
+        device_no = findViewById(R.id.text_mobile_no);
+        device_no.setText("+91 " + getIntent().getStringExtra("mobile"));
+        otp_received = getIntent().getStringExtra("otp");
 
-        TextView otp1 = (TextView) findViewById(R.id.edit_otp1);
-        TextView otp2 = (TextView) findViewById(R.id.edit_otp2);
-        TextView otp3 = (TextView) findViewById(R.id.edit_otp3);
-        TextView otp4 = (TextView) findViewById(R.id.edit_otp4);
-        TextView otp5 = (TextView) findViewById(R.id.edit_otp5);
-        TextView otp6 = (TextView) findViewById(R.id.edit_otp6);
+        EditText otp1 = findViewById(R.id.edit_otp1);
+        EditText otp2 = findViewById(R.id.edit_otp2);
+        EditText otp3 = findViewById(R.id.edit_otp3);
+        EditText otp4 = findViewById(R.id.edit_otp4);
+        EditText otp5 = findViewById(R.id.edit_otp5);
+        EditText otp6 = findViewById(R.id.edit_otp6);
+
+        confirm = findViewById(R.id.btn_confirm);
+        confirm.setOnClickListener(view -> {
+            if (!otp1.getText().toString().trim().isEmpty()
+                    && !otp2.getText().toString().trim().isEmpty()
+                    && !otp3.getText().toString().trim().isEmpty()
+                    && !otp4.getText().toString().trim().isEmpty()
+                    && !otp5.getText().toString().trim().isEmpty()
+                    && !otp6.getText().toString().trim().isEmpty()) {
+
+                otp_entered = otp1.getText().toString() + otp2.getText().toString()
+                        + otp3.getText().toString() + otp4.getText().toString()
+                        + otp5.getText().toString() + otp6.getText().toString();
+
+                Log.d(TAG, "onCreate:entered-code " + otp_entered);
+                Log.d(TAG, "onCreate:received-code " + otp_entered);
+
+                if (otp_entered.equals(otp_received)) {
+                    Toast.makeText(getApplicationContext(), "OTP Matched " + otp_received,
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "OTP Mismatched " +
+                            otp_entered + otp_received, Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(getApplicationContext(), "All Fields required",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
         /* Assign the TextViews in the array in the order in which you want to shift focus */
         TextView[] otpTextViews = {otp1, otp2, otp3, otp4, otp5, otp6};
 
-        confirm = (Button) findViewById(R.id.btn_confirm);
-        confirm.setOnClickListener(view -> {
-            if (otpTextViews!= null) {
-                Toast.makeText(getApplicationContext(), "otp check"+code_received,
-                        Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getApplicationContext(), "All Fields required",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-        });
-
-        Log.d(TAG, "onCreate:otp "+otpTextViews);
+        Log.d(TAG, "onCreate:otp " + otpTextViews);
 
         /*
             This method is used to handle edit text move to next after enter the digits
